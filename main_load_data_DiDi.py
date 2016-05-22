@@ -18,6 +18,7 @@ import pandas as pd
 ## import local lib
 from operate_file import *
 from operate_day import *
+from operate_file_style import operate_file_style
 
 # the path work for csj
 # LOAD_DATA_DIR = "../season_1/"
@@ -80,9 +81,15 @@ def order_sheet_pre():
             data['dest_district_hash'] = data['raw'].map(lambda x: x.split("\t")[4])
             data['Price'] = data['raw'].map(lambda x: x.split("\t")[5])
             data['Time'] = data['raw'].map(lambda x: x.split("\t")[6])
+
             t = pd.to_datetime(data['Time'])
             data['Time']=t.map(lambda x:deal_the_day(x))
+
+            data["week"] = data["Time"].map(lambda x: pd.to_datetime(x[:10]).weekday()+1)
+            data["date"] = data["Time"].map(lambda x: x[:10])
+            data["time"] = data["Time"].map(lambda x: x[11:])
             del data['raw']#del useless column
+            del data['Time']
 
     #save as the specific dir
             save_df_to_file(data, save_path, file)
@@ -106,10 +113,15 @@ def traffic_sheet_pre():
             data['tj_level2_count'] = data['raw'].map(lambda x: x.split("\t")[2][2:])
             data['tj_level3_count'] = data['raw'].map(lambda x: x.split("\t")[3][2:])
             data['tj_level4_count'] = data['raw'].map(lambda x: x.split("\t")[4][2:])
-            data['tj_time'] = data['raw'].map(lambda x: x.split("\t")[5])
-            t = pd.to_datetime(data['tj_time'])
-            data['tj_time']=t.map(lambda x:deal_the_day(x))
+            data['Time'] = data['raw'].map(lambda x: x.split("\t")[5])
+            t = pd.to_datetime(data['Time'])
+            data['Time']=t.map(lambda x:deal_the_day(x))
+
+            data["week"] = data["Time"].map(lambda x: pd.to_datetime(x[:10]).weekday()+1)
+            data["date"] = data["Time"].map(lambda x: x[:10])
+            data["time"] = data["Time"].map(lambda x: x[11:])
             del data['raw']#del useless column
+            del data['Time']
 
     #save as the specific dir
             
@@ -136,18 +148,24 @@ def weather_sheet_pre():
             data['Weather'] = data['raw'].map(lambda x: x.split("\t")[1])
             data['temperature'] = data['raw'].map(lambda x: x.split("\t")[2])
             data['PM2.5'] = data['raw'].map(lambda x: x.split("\t")[3])
+
+            data["week"] = data["Time"].map(lambda x: pd.to_datetime(x[:10]).weekday()+1)
+            data["date"] = data["Time"].map(lambda x: x[:10])
+            data["time"] = data["Time"].map(lambda x: x[11:])
             del data['raw']#del useless column
+            del data['Time']
 
     #save as the specific dir
             save_df_to_file(data, save_path, file)
 
 
 if __name__ == '__main__':
-    if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
-        shutil.rmtree(SAVE_DATA_DIR)
-    cluster_map_sheet_pre()
-    order_sheet_pre()
-    traffic_sheet_pre()
-    weather_sheet_pre()
+    # if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
+    #     shutil.rmtree(SAVE_DATA_DIR)
+    # cluster_map_sheet_pre()
+    # order_sheet_pre()
+    # traffic_sheet_pre()
+    # weather_sheet_pre()
+    operate_file_style(is_add = True, bases_dir = "../../season_1_sad/")
     print("Done...")
 

@@ -50,6 +50,5 @@ def operate_file_style(file_style = "csv", bases_dir = "../season_1/", is_add = 
                 new_file_path = os.path.join(bases_dir, new_file)
                 os.rename(file_path, new_file_path)
 
-if __name__ == '__main__':
-    operate_file_style(is_add = True, bases_dir = "../season_1_sad/")
+    
 
