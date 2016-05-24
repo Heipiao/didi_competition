@@ -89,7 +89,7 @@ def order_sheet_pre():
             data["date"] = data["Time"].map(lambda x: x[:10])
             data["time"] = data["Time"].map(lambda x: x[11:])
             del data['raw']#del useless column
-            del data['Time']
+            data['Time']
 
     #save as the specific dir
             save_df_to_file(data, save_path, file)
