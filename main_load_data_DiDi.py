@@ -160,12 +160,12 @@ def weather_sheet_pre():
 
 
 if __name__ == '__main__':
-    # if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
-    #     shutil.rmtree(SAVE_DATA_DIR)
-    # cluster_map_sheet_pre()
-    # order_sheet_pre()
-    # traffic_sheet_pre()
-    # weather_sheet_pre()
+    if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
+        shutil.rmtree(SAVE_DATA_DIR)
+    cluster_map_sheet_pre()
+    order_sheet_pre()
+    traffic_sheet_pre()
+    weather_sheet_pre()
     operate_file_style(is_add = True, bases_dir = "../../season_1_sad/")
     print("Done...")
 

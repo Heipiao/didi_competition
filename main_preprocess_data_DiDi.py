@@ -15,6 +15,7 @@ import pandas as pd
 
 ## import local lib
 from operate_hash import district_hash_map_dir
+from operate_weather_data import process_weather_dir
 
 
 DATA_DIR = "../../season_1_sad/"
@@ -39,7 +40,14 @@ def map_traffice_district_hash():
     # map the 
     district_hash_map_dir(traffic_data_dir)
 
+def process_weather_noise():
+	weather_data_dir = os.path.join(DATA_DIR, CONCRETE_DIR, WEATHER_SHEET_DIR)
+	process_weather_dir(weather_data_dir)
+
+
+
 
 
 if __name__ == '__main__':
     map_traffice_district_hash()
+    process_weather_noise()
