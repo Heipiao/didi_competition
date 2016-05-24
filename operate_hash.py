@@ -23,7 +23,7 @@ import pandas as pd
 
 
 
-DATA_DIR = "../season_1_sad/" # only change this dir to change the operate dir
+DATA_DIR = "../../season_1_sad/" # only change this dir to change the operate dir
 
 TRAIN_FLAG = True
 CONCRETE_DIR = "training_data" if TRAIN_FLAG else "test_set_1"

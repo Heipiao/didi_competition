@@ -14,7 +14,7 @@ import os
 import pandas as pd
 
 ## import local lib
-from operate_hash import district_hash_map_dir
+from hash_operate import district_hash_map_dir
 
 
 DATA_DIR = "../../season_1_sad/"
@@ -33,11 +33,7 @@ POI_SHEET_DIR = "poi_data"
 
 
 ##############################################################################
-###################### preprocess traffic data here ##########################
-def map_traffice_district_hash():
-    traffic_data_dir = os.path.join(DATA_DIR, CONCRETE_DIR, TRAFFIC_SHEET_DIR)
-    # map the 
-    district_hash_map_dir(traffic_data_dir)
+###################### analyse weather data here #############################
 
 
 
