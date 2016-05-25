@@ -15,13 +15,13 @@ def process_order_data_dir(needed_map_dir):
             mapped_data_frame.to_csv(file_path, index = True)
 
 def process_order_data(data):
-    data["NULL"] = data["driver_id"]=="NULL"
+    data["NULL"] = data["driver_id"].isnull()
 
     df = pd.DataFrame(columns=["order_count","null_count","fee_sum"])
 
     grouped = data.groupby(["Time","start_district"], sort=True)
     df["order_count"] = grouped.count()["dest_district"]
-    df["null_count"] = grouped.count()["NULL"]
+    df["null_count"] = grouped.sum()["NULL"].astype(int)
     df["fee_sum"] = grouped.sum()["Price"]
      
     return df
