@@ -19,6 +19,7 @@ import pandas as pd
 from operate_file import *
 from operate_day import *
 from operate_file_style import operate_file_style
+from operate_load_poi_data import extract_poi_data_normally
 
 # the path work for csj
 # LOAD_DATA_DIR = "../season_1/"
@@ -94,6 +95,18 @@ def order_sheet_pre():
     #save as the specific dir
             save_df_to_file(data, save_path, file)
 
+def poi_sheet_pre():
+    print("\n------ load poi data ----------")
+    poi_sheet_path = os.path.join(LOAD_DATA_DIR, CONCRETE_DIR, POI_SHEET_DIR)
+    print("load data from: " + poi_sheet_path)
+    save_path =os.path.join(SAVE_DATA_DIR, CONCRETE_DIR, POI_SHEET_DIR)
+    print("save data to: " + save_path)
+    data = pd.read_csv(os.path.join(poi_sheet_path,"poi_data"),header=-1)
+    normal_poi_df = extract_poi_data_normally(data)
+
+    file =  "poi_data"
+    save_df_to_file(normal_poi_df, save_path, file)
+
 def traffic_sheet_pre():
 #set filename and input data
     print("\n------ load traffic data ----------")
@@ -160,12 +173,13 @@ def weather_sheet_pre():
 
 
 if __name__ == '__main__':
-    if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
-        shutil.rmtree(SAVE_DATA_DIR)
-    cluster_map_sheet_pre()
-    order_sheet_pre()
-    traffic_sheet_pre()
-    weather_sheet_pre()
+    # if os.path.exists(SAVE_DATA_DIR) and TRAIN_FLAG:
+    #     shutil.rmtree(SAVE_DATA_DIR)
+    # cluster_map_sheet_pre()
+    # order_sheet_pre()
+    # traffic_sheet_pre()
+    # weather_sheet_pre()
+    poi_sheet_pre()
     operate_file_style(is_add = True, bases_dir = "../../season_1_sad/")
     print("Done...")
 

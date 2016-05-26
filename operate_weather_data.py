@@ -22,13 +22,20 @@ def process_weather(data):
     dict1 = dict(zip(data.time,data.Weather))
     dict2 = dict(zip(data.time,data["PM2.5"]))
     dict3 = dict(zip(data.time,data["temperature"]))
+
+
+    date = data["date"].unique()[0]
+    week = data["week"].unique()[0]
     
-    print(dict1)
+
     df = pd.DataFrame(columns=["time","Weather","PM2.5"])
     df["time"]=pd.Series(range(1,145))
     df["Weather"]=0
     df["PM2.5"]=0
     df["temperature"]=0
+
+    df["date"] = date
+    df["week"] = week
     default_wea = 0
     default_pm = 0
     default_tem = 0
@@ -41,8 +48,6 @@ def process_weather(data):
         df["Weather"] = df["Weather"].set_value(int(x)-1,default_wea)
         df["PM2.5"] = df["PM2.5"].set_value(int(x)-1,default_pm)
         df["temperature"] =  df["temperature"].set_value(int(x)-1,default_tem)
-
-
 
     for x in df["time"]:
         if(x>2 and x<143):
